@@ -1,0 +1,21 @@
+name: ci-develop-wf
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - opened
+      - synchronize
+  push:
+    branches:
+      - develop
+jobs:
+  ci-develop-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository on runner
+        uses: actions/checkout@v4
+      - name: Using HTML hint to lint files
+        run: npx htmlhint "**/*.html"
+      - name: Using Style lint to lint css files
+        run: npx stylelint "**/*.css"
